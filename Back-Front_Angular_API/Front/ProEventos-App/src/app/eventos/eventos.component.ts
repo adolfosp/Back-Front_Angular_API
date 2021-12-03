@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/Evento.service';
 
@@ -11,13 +12,15 @@ import { EventoService } from '../services/Evento.service';
 
 export class EventosComponent implements OnInit {
   modalRef?: BsModalRef;
-
+  
   public eventos: Evento[] = [];
   public eventosFiltrados : Evento[] =[];
   public width: number = 100;
   public height: number = 100;
   public mostrarImagem: boolean = true;
   private _filtroListado: string = "";
+  
+  constructor(private eventoService: EventoService, private modalService: BsModalService, private toastr: ToastrService) {}
 
   public get filtroLista(){
     return this._filtroListado
@@ -33,10 +36,6 @@ export class EventosComponent implements OnInit {
     return this.eventos.filter(
       (evento: any) => evento.tema.toLocalLowerCase().indexOf(filtrarPor) !== -1 || evento.local.toLocalLowerCase().indexOf(filtrarPor) !== -1
     );
-  }
-
-  constructor(private eventoService: EventoService, private modalService: BsModalService) {
-
   }
 
   ngOnInit(): void {
@@ -63,11 +62,12 @@ export class EventosComponent implements OnInit {
   }
  
   public Confirmar(): void {
-    
+    this.toastr.success('Registro deletado com sucesso!', 'Deletado');
     this.modalRef?.hide();
   }
  
   public Recusar(): void {
     this.modalRef?.hide();
   }
+  
 }

@@ -21,6 +21,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { EventoService } from './services/Evento.service';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,13 +34,20 @@ import { EventoService } from './services/Evento.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    ToastrModule.forRoot(
+      { timeOut: 3000,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true,
+        progressBar: true
+      }
+    )
   ],
   providers: [EventoService],
   bootstrap: [AppComponent]
