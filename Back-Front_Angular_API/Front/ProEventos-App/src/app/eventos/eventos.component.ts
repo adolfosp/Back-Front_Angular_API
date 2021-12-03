@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/Evento.service';
@@ -20,7 +21,11 @@ export class EventosComponent implements OnInit {
   public mostrarImagem: boolean = true;
   private _filtroListado: string = "";
   
-  constructor(private eventoService: EventoService, private modalService: BsModalService, private toastr: ToastrService) {}
+  constructor(
+              private eventoService: EventoService,
+              private modalService: BsModalService,
+              private toastr: ToastrService,
+              private spinner: NgxSpinnerService) {}
 
   public get filtroLista(){
     return this._filtroListado
@@ -39,7 +44,8 @@ export class EventosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ObterEventos()
+    this.spinner.show();
+    this.ObterEventos();
   }
 
   public AlterarEstadoDaImagem(){
@@ -53,7 +59,11 @@ export class EventosComponent implements OnInit {
         this.eventos = eventos;
         this.eventosFiltrados = this.eventos
       },
-      error: (error : any) => console.error(error)  
+      error: (error : any) => {
+        this.spinner.hide();
+        this.toastr.error("Erro ao carregar os Eventos!","Falha")
+      } ,
+      complete: ()  => this.spinner.hide()
       });
   }
 
