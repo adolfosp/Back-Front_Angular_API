@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+/Back-Front_Angular_API/Front/ProEventos-App/node_modules
