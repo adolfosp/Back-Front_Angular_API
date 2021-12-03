@@ -37,9 +37,14 @@
             <td>{{item.quantidadePessoas}}</td>
             <td>{{item.lotes[0].nome}}</td>
             <td>
-                <button class="btn btn-primary btn-sm mr-2"><i class="fa fa-edit"></i> Editar</button>
-                <button class="btn btn-danger btn-sm"><i class="fa fa-delete"></i> Deletar</button>
-
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm mr-2" tooltip="Editar">
+                        <i class="fa fa-edit"></i> Editar
+                    </button>
+                    <button class="btn btn-danger btn-sm" tooltip="Excluir">
+                        <i class="fa fa-delete"></i> Deletar
+                    </button>
+                </div>
             </td>
         </tr>
     </tbody>
