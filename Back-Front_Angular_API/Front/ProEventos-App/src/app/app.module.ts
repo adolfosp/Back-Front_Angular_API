@@ -4,9 +4,11 @@ import { HttpClientModule } from '@angular/common/http'
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { FormsModule } from '@angular/forms';
 
+
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule  } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
@@ -33,6 +35,7 @@ import { EventoService } from './services/Evento.service';
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule

@@ -41,7 +41,7 @@
                     <button class="btn btn-primary btn-sm mr-2" tooltip="Editar">
                         <i class="fa fa-edit"></i> Editar
                     </button>
-                    <button class="btn btn-danger btn-sm" tooltip="Excluir">
+                    <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="AbrirModal(template)">
                         <i class="fa fa-delete"></i> Deletar
                     </button>
                 </div>
@@ -56,3 +56,11 @@
         </tr>
     </tfoot>
 </table>
+
+<ng-template #template>
+    <div class="modal-body text-center">
+      <p>Deseja confirmar essa operação?</p>
+      <button type="button" class="btn btn-default" (click)="Confirmar()" >Sim</button>
+      <button type="button" class="btn btn-primary" (click)="Recusar()" >Não</button>
+    </div>
+  </ng-template>
