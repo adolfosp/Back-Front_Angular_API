@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { NavComponent } from './nav/nav.component';
+import { TituloComponent } from './shared/titulo/titulo.component';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +29,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     EventosComponent,
     PalestrantesComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
+    TituloComponent
    ],
   imports: [
     BrowserModule,
