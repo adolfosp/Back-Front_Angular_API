@@ -10,10 +10,13 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { PalestrantesComponent } from './palestrantes/palestrantes.component';
-import { NavComponent } from './nav/nav.component';
+import { EventosComponent } from './componentes/eventos/eventos.component';
+import { PalestrantesComponent } from './componentes/palestrantes/palestrantes.component';
+import { NavComponent } from './componentes/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
+import { DashboardComponent } from './componentes/dashboard/dashboard.component';
+import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { ContatosComponent } from './componentes/contatos/contatos.component';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +33,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PalestrantesComponent,
     NavComponent,
     DateTimeFormatPipe,
-    TituloComponent
+    TituloComponent,
+    ContatosComponent,
+    PerfilComponent,
+    DashboardComponent
+
    ],
   imports: [
     BrowserModule,
