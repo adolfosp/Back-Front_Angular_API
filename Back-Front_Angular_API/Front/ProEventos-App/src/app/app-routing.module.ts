@@ -11,7 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {path: 'eventos', component: EventosComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'contato', component: ContatosComponent},
+  {path: 'contatos', component: ContatosComponent},
   {path: 'perfil', component: PerfilComponent},
   {path: 'palestrantes', component: PalestrantesComponent},
   {path: '**', redirectTo: 'dashboard', pathMatch :'full'},
