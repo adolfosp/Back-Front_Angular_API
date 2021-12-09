@@ -21,37 +21,34 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>
+                <th class="d-none d-md-table-cell">
                     <button class="btn btn-primary btn-sm" (click)="AlterarEstadoDaImagem()"><i class="{{!mostrarImagem ? 'fa fa-eye': 'fa fa-eye-slash'}}"></i> {{!mostrarImagem ? 'Exibir': 'Ocultar'}} </button>
                 </th>
                 <th>#</th>
                 <th>Tema</th>
-                <th>Local</th>
+                <th class="d-none d-md-table-cell">Local</th>
                 <th>Data</th>
-                <th>Quantidade de Pessoas</th>
-                <th>Lote</th>
+                <th class="d-none d-md-table-cell">Quantidade de Pessoas</th>
+                <th class="d-none d-md-table-cell">Lote</th>
                 <th>Opções</th>
             </tr>
         </thead>
         <tbody *ngIf="eventos && eventos.length > 0">
             <tr *ngFor="let item of eventosFiltrados">
                 <td></td>
-                <td>
+                <td class="d-none d-md-table-cell">
                     <img [collapse]="mostrarImagem" [isAnimated]="true" src="/assets/{{item.imagemURL}}" [style.width.px]="width" [style.height.px]="height" />
                     <!-- property binding  -->
                 </td>
                 <td>{{item.id}}</td>
                 <td>{{item.tema}}</td>
-                <td>{{item.local}}</td>
+                <td class="d-none d-md-table-cell">{{item.local}}</td>
                 <td>{{item.dataEvento | DateTimeFormat}}</td>
-                <td>{{item.quantidadePessoas}}</td>
-                <td>{{item.lotes[0].nome}}</td>
+                <td class="d-none d-md-table-cell">{{item.quantidadePessoas}}</td>
+                <td class="d-none d-md-table-cell">{{item.lotes[0].nome}}</td>
                 <td>
                     <div class="btn-group">
-                        <button class="btn btn-primary btn-sm mr-2" tooltip="Editar">
-                            <i class="fa fa-edit"></i> Editar
-                        </button>
-                        <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="AbrirModal(template)">
+                        <button class="btn btn-danger btn-lg" tooltip="Excluir" (click)="AbrirModal(template)">
                             <i class="fa fa-delete"></i> Deletar
                         </button>
                     </div>
