@@ -24,6 +24,8 @@ import { EventoService } from './services/Evento.service';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/evento-detalhe.component';
+import { EventoListagemComponent } from './componentes/eventos/evento-listagem/evento-listagem.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TituloComponent,
     ContatosComponent,
     PerfilComponent,
-    DashboardComponent
+    DashboardComponent,
+    EventoDetalheComponent,
+    EventoListagemComponent
 
    ],
   imports: [
