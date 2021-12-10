@@ -26,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListagemComponent } from './componentes/eventos/evento-listagem/evento-listagem.component';
+import { UserComponent } from './componentes/user/user.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { EventoListagemComponent } from './componentes/eventos/evento-listagem/e
     PerfilComponent,
     DashboardComponent,
     EventoDetalheComponent,
-    EventoListagemComponent
+    EventoListagemComponent,
+    UserComponent
 
    ],
   imports: [
