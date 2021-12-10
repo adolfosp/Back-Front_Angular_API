@@ -15,7 +15,7 @@ import { PalestrantesComponent } from './componentes/palestrantes/palestrantes.c
 import { NavComponent } from './shared/nav/nav.component';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
-import { PerfilComponent } from './componentes/perfil/perfil.component';
+import { PerfilComponent } from './componentes/user/perfil/perfil.component';
 import { ContatosComponent } from './componentes/contatos/contatos.component';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
