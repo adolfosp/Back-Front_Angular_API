@@ -28,6 +28,7 @@ import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/eve
 import { EventoListagemComponent } from './componentes/eventos/evento-listagem/evento-listagem.component';
 import { UserComponent } from './componentes/user/user.component';
 import { LoginComponent } from './componentes/user/login/login.component';
+import { RegistrarUsuarioComponent } from './componentes/user/registrar-usuario/registrar-usuario.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { LoginComponent } from './componentes/user/login/login.component';
     EventoDetalheComponent,
     EventoListagemComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrarUsuarioComponent
 
    ],
   imports: [
