@@ -1,4 +1,6 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -25,7 +27,8 @@ export class EventoListagemComponent implements OnInit {
               private eventoService: EventoService,
               private modalService: BsModalService,
               private toastr: ToastrService,
-              private spinner: NgxSpinnerService) {}
+              private spinner: NgxSpinnerService,
+              private router: Router) {}
 
   public get filtroLista(){
     return this._filtroListado
@@ -78,6 +81,10 @@ export class EventoListagemComponent implements OnInit {
  
   public Recusar(): void {
     this.modalRef?.hide();
+  }
+
+  public DetalheEvento(idEvento : number): void {
+    this.router.navigate([`/eventos/detalhe/${idEvento}`])
   }
 
 }

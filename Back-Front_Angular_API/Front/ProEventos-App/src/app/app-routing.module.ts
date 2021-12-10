@@ -11,7 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-
+{path: 'eventos', redirectTo: 'eventos/lista'},
   {
     path: 'eventos', component: EventosComponent,
     children:[
@@ -20,7 +20,6 @@ const routes: Routes = [
       {path: 'lista', component: EventoListagemComponent},
     ]
   },
-
   {path: 'dashboard', component: DashboardComponent},
   {path: 'contatos', component: ContatosComponent},
   {path: 'perfil', component: PerfilComponent},
