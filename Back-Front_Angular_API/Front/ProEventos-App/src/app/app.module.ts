@@ -27,6 +27,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListagemComponent } from './componentes/eventos/evento-listagem/evento-listagem.component';
 import { UserComponent } from './componentes/user/user.component';
+import { LoginComponent } from './componentes/user/login/login.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { UserComponent } from './componentes/user/user.component';
     DashboardComponent,
     EventoDetalheComponent,
     EventoListagemComponent,
-    UserComponent
+    UserComponent,
+    LoginComponent
 
    ],
   imports: [

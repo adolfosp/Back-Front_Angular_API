@@ -6,7 +6,7 @@ import { DashboardComponent } from './componentes/dashboard/dashboard.component'
 import { ContatosComponent } from './componentes/contatos/contatos.component';
 import { EventosComponent } from './componentes/eventos/eventos.component';
 
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
