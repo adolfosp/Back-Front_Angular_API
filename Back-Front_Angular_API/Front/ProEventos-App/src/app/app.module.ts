@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule  } from 'ngx-bootstrap/dropdown';
@@ -55,6 +55,7 @@ import { RegistrarUsuarioComponent } from './componentes/user/registrar-usuario/
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxSpinnerModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
