@@ -16,14 +16,14 @@ export class EventoDetalheComponent implements OnInit {
   constructor(private fb:FormBuilder) { }
 
   ngOnInit(): void {
-    this.Validacao();
+    this.validacao();
   }
 
-  public ResetarForm(): void{
+  public resetarForm(): void{
     this.form.reset();
   }
 
-  public Validacao() : void{
+  private validacao() : void{
     this.form = this.fb.group({
       local: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       dataEvento: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
