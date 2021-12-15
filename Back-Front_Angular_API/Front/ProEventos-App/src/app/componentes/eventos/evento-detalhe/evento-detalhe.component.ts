@@ -19,6 +19,10 @@ export class EventoDetalheComponent implements OnInit {
     this.Validacao();
   }
 
+  public ResetarForm(): void{
+    this.form.reset();
+  }
+
   public Validacao() : void{
     this.form = this.fb.group({
       local: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
