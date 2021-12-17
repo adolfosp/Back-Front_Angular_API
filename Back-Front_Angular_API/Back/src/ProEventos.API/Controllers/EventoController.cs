@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProEventos.API.Dtos;
 using ProEventos.Application.Contratos;
 using ProEventos.Domain;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ProEventos.API.Controllers
@@ -28,7 +30,23 @@ namespace ProEventos.API.Controllers
 
                 if (eventos is null) return NotFound("Nenhum evento encontrado!");
 
-                return Ok(eventos);
+                var eventoRetorno = new List<EventoDto>();
+
+                foreach (var item in eventos)
+                {
+                    eventoRetorno.Add(new EventoDto() { 
+                        Id = item.Id,
+                        Local = item.Local,
+                        DataEvento = item.DataEvento.ToString(),
+                        Email = item.Email,
+                        ImagemURL = item.ImagemURL,
+                        QuantidadePessoas = item.QuantidadePessoas,
+                        Telefone = item.Telefone,
+                        Tema = item.Tema
+                    });
+                }
+
+                return Ok(eventoRetorno);
             }
             catch (Exception ex)
             {

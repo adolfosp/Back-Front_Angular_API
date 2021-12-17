@@ -12,4 +12,8 @@ export class PerfilComponent implements OnInit {
   ngOnInit() {
   }
 
+  public resetarForm(event:any): void{
+    event.preventDefault();
+    // this.form.reset();
+  }
 }
