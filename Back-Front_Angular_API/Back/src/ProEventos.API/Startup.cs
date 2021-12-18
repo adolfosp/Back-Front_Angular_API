@@ -12,6 +12,8 @@ using ProEventos.Persistence.Contratos;
 using ProEventos.Persistence.EventoPersistence;
 using ProEventos.Persistence.GeralPersistence;
 using System.Text.Json.Serialization;
+using AutoMapper;
+using System;
 
 namespace ProEventos.API
 {
@@ -35,7 +37,8 @@ namespace ProEventos.API
             //trabalhando com arquitetura MVC
             services.AddControllers().AddJsonOptions(x =>
                             x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-            
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<IGeralPersistence, GeralPersistence>();
             services.AddScoped<IEventoPersistence, EventoPersistence>();
