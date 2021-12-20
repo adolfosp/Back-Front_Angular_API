@@ -1,4 +1,6 @@
-﻿using ProEventos.Application.Contratos;
+﻿using AutoMapper;
+using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 using ProEventos.Persistence.Contratos;
 using System;
@@ -10,21 +12,32 @@ namespace ProEventos.Application
     {
         private readonly IGeralPersistence _geralPersistence;
         private readonly IEventoPersistence _eventoPersistence;
+        private readonly IMapper _mapper;
 
-        public EventoService(IGeralPersistence geralPersistence, IEventoPersistence eventoPersistence)
+
+        public EventoService(IGeralPersistence geralPersistence, IEventoPersistence eventoPersistence, IMapper mapper)
         {
             _geralPersistence = geralPersistence;
             _eventoPersistence = eventoPersistence;
+            _mapper = mapper;
         }
 
-        public async Task<Evento> AdicionarEventos(Evento model)
+        public async Task<EventoDto> AdicionarEventos(EventoDto model)
         {
             try
             {
-                _geralPersistence.Adicionar<Evento>(model);
 
-                if (await _geralPersistence.SalvarAnteracoesAsync())
-                    return await _eventoPersistence.ObterEventoPorIdAsync(model.Id, false);
+                var evento = _mapper.Map<Evento>(model);
+
+                _geralPersistence.Adicionar<Evento>(evento);
+
+                if (await _geralPersistence.SalvarAnteracoesAsync()) {
+
+                    var retornoConsultaPorId = await _eventoPersistence.ObterEventoPorIdAsync(evento.Id, false);
+
+                    return _mapper.Map<EventoDto>(retornoConsultaPorId);
+                }
+                  
 
                 return null;
 
@@ -35,7 +48,7 @@ namespace ProEventos.Application
             }
         }
 
-        public async Task<Evento> AtualizarEvento(int eventoId, Evento model)
+        public async Task<EventoDto> AtualizarEvento(int eventoId, EventoDto model)
         {
             try
             {
@@ -79,7 +92,7 @@ namespace ProEventos.Application
             }
         }
 
-        public async Task<Evento> ObterEventoPorIdAsync(int idEvento, bool incluirPalestrantes = false)
+        public async Task<EventoDto> ObterEventoPorIdAsync(int idEvento, bool incluirPalestrantes = false)
         {
             try
             {
@@ -87,7 +100,9 @@ namespace ProEventos.Application
 
                 if (evento is null) return null;
 
-                return evento;
+                var resultadoMapeado = _mapper.Map<EventoDto>(evento);
+
+                return resultadoMapeado;
 
             }
             catch (Exception ex)
@@ -96,7 +111,7 @@ namespace ProEventos.Application
             }
         }
 
-        public async Task<Evento[]> ObterTodosEventosAsync(bool incluirPalestrantes = false)
+        public async Task<EventoDto[]> ObterTodosEventosAsync(bool incluirPalestrantes = false)
         {
 
             try
@@ -105,7 +120,9 @@ namespace ProEventos.Application
 
                 if (eventos is null) return null;
 
-                return eventos;
+                var resultadosMapeado = _mapper.Map<EventoDto[]>(eventos);
+
+                return resultadosMapeado;
 
             }
             catch (Exception ex)
@@ -114,7 +131,7 @@ namespace ProEventos.Application
             }
         }
 
-        public async Task<Evento[]> ObterTodosEventosPorTemaAsync(string tema, bool incluirPalestrantes = false)
+        public async Task<EventoDto[]> ObterTodosEventosPorTemaAsync(string tema, bool incluirPalestrantes = false)
         {
             try
             {
@@ -122,7 +139,9 @@ namespace ProEventos.Application
 
                 if (eventos is null) return null;
 
-                return eventos;
+                var resultadosMapeado = _mapper.Map<EventoDto[]>(eventos);
+
+                return resultadosMapeado;
 
             }
             catch (Exception ex)

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProEventos.API.Dtos;
 using ProEventos.Application.Contratos;
+using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ProEventos.API.Controllers
@@ -30,23 +29,7 @@ namespace ProEventos.API.Controllers
 
                 if (eventos is null) return NotFound("Nenhum evento encontrado!");
 
-                var eventoRetorno = new List<EventoDto>();
-
-                foreach (var item in eventos)
-                {
-                    eventoRetorno.Add(new EventoDto() { 
-                        Id = item.Id,
-                        Local = item.Local,
-                        DataEvento = item.DataEvento.ToString(),
-                        Email = item.Email,
-                        ImagemURL = item.ImagemURL,
-                        QuantidadePessoas = item.QuantidadePessoas,
-                        Telefone = item.Telefone,
-                        Tema = item.Tema
-                    });
-                }
-
-                return Ok(eventoRetorno);
+                return Ok(eventos);
             }
             catch (Exception ex)
             {
@@ -92,7 +75,7 @@ namespace ProEventos.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Inserir(Evento model)
+        public async Task<IActionResult> Inserir(EventoDto model)
         {
             try
             {
@@ -109,7 +92,7 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpPut("{codigoEvento}")]
-        public async Task<IActionResult> Atualizar(int codigoEvento, Evento model)
+        public async Task<IActionResult> Atualizar(int codigoEvento, EventoDto model)
         {
             try
             {
