@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProEventos.Domain{
+
+    //[Table("EventosDetalhes")]
     public class Evento
     {
         public int Id { get; set; }
         public string Local { get; set; }
         public DateTime? DataEvento { get; set; }
+
+        //[NotMapped]// não vai ser criado no banco de dados
+        //public int ContagemDias { get; set; }
+
+        [Required]
         public string Tema { get; set; }
         public int QuantidadePessoas { get; set; }
         public string ImagemURL { get; set; }
