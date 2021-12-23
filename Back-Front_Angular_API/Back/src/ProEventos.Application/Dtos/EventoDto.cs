@@ -17,6 +17,8 @@ namespace ProEventos.Application.Dtos
         [Display(Name = "Quantidade de pessoas")]
         [Range(1,120000, ErrorMessage = "{0} não pode ser menor que 1 e maior que 120.000")]
         public int QuantidadePessoas { get; set; }
+
+        [RegularExpression(@".*\.(gif|jpe?g|bmp|png)$",ErrorMessage = "Não é uma imagem com formato válido. (gif, jpeg, jpg, bmp ou png)")]
         public string ImagemURL { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório"),
