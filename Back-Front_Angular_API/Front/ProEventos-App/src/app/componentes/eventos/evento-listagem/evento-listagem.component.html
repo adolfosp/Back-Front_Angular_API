@@ -44,7 +44,7 @@
                 <td class="d-none d-md-table-cell">{{item.local}}</td>
                 <td>{{item.dataEvento | DateTimeFormat}}</td>
                 <td class="d-none d-md-table-cell">{{item.quantidadePessoas}}</td>
-                <td class="d-none d-md-table-cell">{{item.lotes[0].nome}}</td>
+                <td class="d-none d-md-table-cell">{{item.lotes[0]?.nome}}</td>
                 <td>
                     <div class="btn-group">
                         <button class="btn btn-danger btn-lg" tooltip="Excluir" (click)="AbrirModal(template)">

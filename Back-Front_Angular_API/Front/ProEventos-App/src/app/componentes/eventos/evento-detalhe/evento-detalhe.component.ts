@@ -35,4 +35,8 @@ export class EventoDetalheComponent implements OnInit {
 
     });
   }
+
+  public cssValidator(campoForm: FormControl): any {
+    return {'is-invalid': campoForm.errors && campoForm.touched}
+  }
 }
