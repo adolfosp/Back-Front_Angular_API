@@ -8,6 +8,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule  } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { EventosComponent } from './componentes/eventos/eventos.component';
@@ -22,8 +25,6 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { EventoService } from './services/Evento.service';
 
-import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListagemComponent } from './componentes/eventos/evento-listagem/evento-listagem.component';
 import { UserComponent } from './componentes/user/user.component';
@@ -55,8 +56,10 @@ import { RegistrarUsuarioComponent } from './componentes/user/registrar-usuario/
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+
     ReactiveFormsModule,
     NgxSpinnerModule,
+    BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
