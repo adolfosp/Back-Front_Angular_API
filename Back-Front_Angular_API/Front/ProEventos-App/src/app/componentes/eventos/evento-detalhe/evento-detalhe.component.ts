@@ -9,8 +9,19 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class EventoDetalheComponent implements OnInit {
 
   form!: FormGroup;
+
   get f(): any{
     return this.form.controls;
+  }
+
+  //propriedade
+  get bsConfig() : any{
+    return { 
+        adaptivePosition: true,
+        dateInputFormat: 'DD/MM/YYYY hh:mm a',
+        containerClass: 'theme-default',
+        showWeekNumbers: false
+      }
   }
 
   constructor(private fb:FormBuilder) { }
