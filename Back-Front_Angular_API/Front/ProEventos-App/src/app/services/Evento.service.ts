@@ -22,7 +22,7 @@ export class EventoService {
     return this.http.get<Evento[]>(`${this.baseURL}/${tema}/tema`)
   }
 
-  public ObterEventoById(id: number): Observable<Evento[]>{
-    return this.http.get<Evento[]>(`${this.baseURL}/${id}`)
+  public ObterEventoById(id: number): Observable<Evento>{
+    return this.http.get<Evento>(`${this.baseURL}/${id}`)
   }
 }

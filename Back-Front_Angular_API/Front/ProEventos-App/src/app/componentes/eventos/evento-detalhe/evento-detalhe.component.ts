@@ -1,6 +1,13 @@
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
+import { Evento } from './../../../models/Evento';
+import { EventoService } from './../../../services/Evento.service';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -9,6 +16,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 })
 export class EventoDetalheComponent implements OnInit {
 
+  evento = {} as Evento
   form!: FormGroup;
 
   get f(): any{
@@ -25,12 +33,44 @@ export class EventoDetalheComponent implements OnInit {
       }
   }
 
-  constructor(private fb:FormBuilder, private localeService: BsLocaleService) {
-    this.localeService.use('pt-br')
-  }
+  constructor(
+    private fb:FormBuilder,
+    private localeService: BsLocaleService,
+    private router: ActivatedRoute,
+    private eventoService: EventoService,
+    private spinner: NgxSpinnerService,
+    private toaster: ToastrService)
+    {
+      this.localeService.use('pt-br')
+    }
 
   ngOnInit(): void {
+    this.carregarEvento();
     this.validacao();
+  }
+
+  public carregarEvento() : void{
+    const eventoIdParametro = this.router.snapshot.paramMap.get('id');
+
+    if(eventoIdParametro !== null){
+      this.spinner.show();
+      this.eventoService.ObterEventoById(+eventoIdParametro).subscribe(
+        {
+          next: (evento: Evento) => {
+            this.evento = {...evento};
+            this.form.patchValue(this.evento);
+          },
+          error: (error: any) => {
+            this.spinner.hide(),
+            this.toaster.error('Erro ao tentar carregar o evento', 'Erro!')
+            console.error(error)
+          },
+          complete: () => {
+            this.spinner.hide()
+          },
+        }
+      )
+    }
   }
 
   public resetarForm(): void{
