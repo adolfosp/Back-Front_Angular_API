@@ -102,34 +102,17 @@ export class EventoDetalheComponent implements OnInit {
     this.spinner.show();
     if(this.form.valid){
 
-      if(this.estadoSalvar === 'post'){
+      this.evento = (this.estadoSalvar === 'post') ? {...this.form.value} : {id: this.evento.id, ...this.form.value};
 
-        this.evento = {...this.form.value};
-
-        this.eventoService.postEvento(this.evento).subscribe(
-          () => this.toaster.success('Evento salvo com sucesso', 'Sucesso!'),
-          (error: any) => {
-            console.error(error);
-            this.spinner.hide();
-            this.toaster.error(`Não foi possível salvar o evento. Mensagem: ${error}`, 'Erro!')
-          },
-          () => this.spinner.hide()
-        );
-      } else{
-
-        this.evento = {id: this.evento.id, ...this.form.value};
-
-        this.eventoService.putEvento(this.evento).subscribe(
-          () => this.toaster.success('Evento atualizado com sucesso', 'Sucesso!'),
-          (error: any) => {
-            console.error(error);
-            this.spinner.hide();
-            this.toaster.error(`Não foi possível atualizar o evento. Mensagem: ${error}`, 'Erro!')
-          },
-          () => this.spinner.hide()
-  
-        );
-      }
+      this.eventoService[this.estadoSalvar](this.evento).subscribe(
+        () => this.toaster.success('Evento salvo com sucesso', 'Sucesso!'),
+        (error: any) => {
+          console.error(error);
+          this.spinner.hide();
+          this.toaster.error(`Não foi possível salvar o evento. Mensagem: ${error}`, 'Erro!')
+        },
+        () => this.spinner.hide()
+      );
     }
   }
 }
