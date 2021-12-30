@@ -20,7 +20,9 @@ export class EventoListagemComponent implements OnInit {
   public width: number = 100;
   public height: number = 100;
   public mostrarImagem: boolean = true;
+  public eventoId: number = 0;
   private _filtroListado: string = "";
+
   
   constructor(
               private eventoService: EventoService,
@@ -69,7 +71,9 @@ export class EventoListagemComponent implements OnInit {
       });
   }
 
-  public AbrirModal(template: TemplateRef<any>): void {
+  public AbrirModal(event: any, template: TemplateRef<any>, eventoId: number): void {
+    event.stopPropagation();
+    this.eventoId = eventoId
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
  

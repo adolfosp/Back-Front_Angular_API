@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProEventos.Domain{
+namespace ProEventos.Domain
+{
 
     //[Table("EventosDetalhes")]
     public class Evento
@@ -18,7 +18,7 @@ namespace ProEventos.Domain{
         [Required]
         public string Tema { get; set; }
         public int QuantidadePessoas { get; set; }
-        public string ImagemURL { get; set; }
+        public string ImagemUrl { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
         public IEnumerable<Lote> Lotes { get; set; }

@@ -27,7 +27,7 @@ namespace ProEventos.Persistence.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImagemURL")
+                    b.Property<string>("ImagemUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Local")
