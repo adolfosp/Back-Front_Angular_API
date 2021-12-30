@@ -93,4 +93,23 @@ export class EventoDetalheComponent implements OnInit {
   public cssValidator(campoForm: FormControl): any {
     return {'is-invalid': campoForm.errors && campoForm.touched}
   }
+
+  public salvarAlteracao(): void{
+    this.spinner.show();
+    if(this.form.valid){
+
+      this.evento = {...this.form.value};
+      
+      this.eventoService.postEvento(this.evento).subscribe(
+        () => this.toaster.success('Evento salvo com sucesso', 'Sucesso!'),
+        (error: any) => {
+          console.error(error);
+          this.spinner.hide();
+          this.toaster.error(`Não foi possível salvar o evento. Mensagem: ${error}`, 'Erro!')
+        },
+        () => this.spinner.hide()
+
+      );
+    }
+  }
 }

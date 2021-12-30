@@ -114,7 +114,7 @@ namespace ProEventos.API.Controllers
             try
             {
                 if (await _service.DeletarEvento(codigoEvento))
-                    return Ok("Evento deletado com sucesso!");
+                    return Ok(new {mensagem = "Evento deletado com sucesso!" });
 
                 return BadRequest("Não foi possível deletar o Evento!");
 
