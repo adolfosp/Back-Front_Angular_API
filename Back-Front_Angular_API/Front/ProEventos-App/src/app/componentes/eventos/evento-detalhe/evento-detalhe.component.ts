@@ -18,6 +18,7 @@ export class EventoDetalheComponent implements OnInit {
 
   evento = {} as Evento
   form!: FormGroup;
+  estadoSalvar: string = 'post';
 
   get f(): any{
     return this.form.controls;
@@ -53,7 +54,10 @@ export class EventoDetalheComponent implements OnInit {
     const eventoIdParametro = this.router.snapshot.paramMap.get('id');
 
     if(eventoIdParametro !== null){
+
+      this.estadoSalvar = 'put';
       this.spinner.show();
+
       this.eventoService.ObterEventoById(+eventoIdParametro).subscribe(
         {
           next: (evento: Evento) => {
@@ -98,18 +102,34 @@ export class EventoDetalheComponent implements OnInit {
     this.spinner.show();
     if(this.form.valid){
 
-      this.evento = {...this.form.value};
-      
-      this.eventoService.postEvento(this.evento).subscribe(
-        () => this.toaster.success('Evento salvo com sucesso', 'Sucesso!'),
-        (error: any) => {
-          console.error(error);
-          this.spinner.hide();
-          this.toaster.error(`Não foi possível salvar o evento. Mensagem: ${error}`, 'Erro!')
-        },
-        () => this.spinner.hide()
+      if(this.estadoSalvar === 'post'){
 
-      );
+        this.evento = {...this.form.value};
+
+        this.eventoService.postEvento(this.evento).subscribe(
+          () => this.toaster.success('Evento salvo com sucesso', 'Sucesso!'),
+          (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toaster.error(`Não foi possível salvar o evento. Mensagem: ${error}`, 'Erro!')
+          },
+          () => this.spinner.hide()
+        );
+      } else{
+
+        this.evento = {id: this.evento.id, ...this.form.value};
+
+        this.eventoService.putEvento(this.evento).subscribe(
+          () => this.toaster.success('Evento atualizado com sucesso', 'Sucesso!'),
+          (error: any) => {
+            console.error(error);
+            this.spinner.hide();
+            this.toaster.error(`Não foi possível atualizar o evento. Mensagem: ${error}`, 'Erro!')
+          },
+          () => this.spinner.hide()
+  
+        );
+      }
     }
   }
 }

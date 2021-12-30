@@ -30,8 +30,8 @@ export class EventoService {
     return this.http.post<Evento>(this.baseURL,evento)
   }
 
-  public putEvento(id: number, evento: Evento): Observable<Evento>{
-    return this.http.put<Evento>(`${this.baseURL}/${id}`, evento)
+  public putEvento(evento: Evento): Observable<Evento>{
+    return this.http.put<Evento>(`${this.baseURL}/${evento.id}`, evento)
   }
 
   public deleteEvento(id: number): Observable<any>{
