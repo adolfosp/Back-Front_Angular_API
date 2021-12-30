@@ -81,24 +81,20 @@ export class EventoListagemComponent implements OnInit {
 
     this.modalRef?.hide();
     this.spinner.show();
+
     this.eventoService.deleteEvento(this.eventoId).subscribe(
       (result: string) =>{
-        
+
         this.toastr.success('Registro deletado com sucesso!', 'Deletado');
-        this.spinner.hide();
         this.ObterEventos();
         
-
       },
       (error: any) =>{
         this.toastr.error(`Erro ao tentar deletar o evento. Mensagem: ${error}`, 'Erro!');
-        this.spinner.hide();
-      },
-      () =>{
-        this.spinner.hide();
       }
 
-    );
+    ).add(() => this.spinner.hide());
+    //adiciona o spinner em cada função
   }
  
   public Recusar(): void {
