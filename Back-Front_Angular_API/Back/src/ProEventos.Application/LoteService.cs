@@ -3,7 +3,9 @@ using ProEventos.Application.Contratos;
 using ProEventos.Application.Dtos;
 using ProEventos.Persistence.Contratos;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using ProEventos.Domain;
 
 namespace ProEventos.Application
 {
@@ -80,9 +82,43 @@ namespace ProEventos.Application
             }
         }
 
-        public Task<LoteDto> SaveLote(int eventoId, LoteDto[] model)
+        public async Task<LoteDto[]> SaveLote(int eventoId, LoteDto[] models)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var lotes = await _lotePersistence.ObterTodosLotesByEventoIdAsync(eventoId);
+
+                if (lotes is null) return null;
+
+                foreach (var model in models)
+                {
+                    if (model.CodigoEvento == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        var lote = lotes.FirstOrDefault(lote => lote.CodigoEvento == model.CodigoEvento);
+
+                        model.CodigoEvento = eventoId;
+
+                        _mapper.Map(model, lote);
+
+                        _geralPersistence.Alterar<Lote>(lote);
+
+                        await _geralPersistence.SalvarAnteracoesAsync();
+
+                    }
+                }
+
+                var loteRetorno = await _lotePersistence.ObterTodosLotesByEventoIdAsync(eventoId);
+
+                return  _mapper.Map<LoteDto[]>(loteRetorno);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao tentar atualizar o EVENTO! Mensagem: {ex.Message}");
+            }
         }
     }
 }
