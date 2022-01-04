@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Application.Contratos;
 using ProEventos.Application.Dtos;
-using ProEventos.Domain;
 using System;
 using System.Threading.Tasks;
 
@@ -25,32 +24,32 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var eventos = await _service.ObterLotesById(true);
+                var lotes = await _service.ObterLotesPorEventoIdAsync(id);
 
-                if (eventos is null) return NoContent();
+                if (lotes is null) return NoContent();
 
-                return Ok(eventos);
+                return Ok(lotes);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível obter os eventos! Mensagem: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível obter os lotes! Mensagem: {ex.Message}");
             }
         }
 
         [HttpPut("{codigoEvento}")]
-        public async Task<IActionResult> Atualizar(int codigoEvento, LoteDto[] models)
+        public async Task<IActionResult> SaveLotes(int codigoEvento, LoteDto[] models)
         {
             try
             {
-                var evento = await _service.AtualizarEvento(codigoEvento, models);
+                var lotes = await _service.SaveLote(codigoEvento, models);
 
-                if (evento is null) return BadRequest("Não foi possível atualizar o Evento!");
+                if (lotes is null) return BadRequest("Não foi possível atualizar os lotes!");
 
-                return Ok(evento);
+                return Ok(lotes);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o EVENTO! Mensagem: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível atualizar o Lotes! Mensagem: {ex.Message}");
             }
         }
 
@@ -59,16 +58,17 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var evento = await _service.ObterLoteEventoById(codigoEvento, loteId);
-                if (await _service.DeletarEvento(codigoEvento))
-                    return Ok(new {mensagem = "Evento deletado com sucesso!" });
+                var lote = await _service.ObterLoteByIdsAsync(codigoEvento, loteId);
 
-                return BadRequest("Não foi possível deletar o Evento!");
+                if (await _service.DeletarLote(lote.CodigoEvento, lote.Id))
+                    return Ok(new {mensagem = "Lote deletado com sucesso!" });
+
+                return BadRequest("Não foi possível deletar o Lote!");
 
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível excluir o EVENTO! Mensagem: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível excluir o Lote! Mensagem: {ex.Message}");
             }
         }
     }
