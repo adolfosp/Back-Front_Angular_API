@@ -11,9 +11,8 @@ using ProEventos.Persistence.Contextos;
 using ProEventos.Persistence.Contratos;
 using ProEventos.Persistence.EventoPersistence;
 using ProEventos.Persistence.GeralPersistence;
-using System.Text.Json.Serialization;
-using AutoMapper;
 using System;
+using System.Text.Json.Serialization;
 
 namespace ProEventos.API
 {
@@ -41,6 +40,8 @@ namespace ProEventos.API
             //Injeta o servico
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IEventoService, EventoService>();
+            services.AddScoped<ILoteService, LoteService>();
+
             services.AddScoped<IGeralPersistence, GeralPersistence>();
             services.AddScoped<IEventoPersistence, EventoPersistence>();
             services.AddScoped<ILotePersistence, LotePersistence>();
