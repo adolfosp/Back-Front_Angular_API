@@ -23,6 +23,25 @@ namespace ProEventos.Application
             _mapper = mapper;
         }
 
+        public async Task AdicionarLote(int eventoId, LoteDto model)
+        {
+            try
+            {
+
+                var lote = _mapper.Map<Lote>(model);
+                lote.CodigoEvento = eventoId;
+
+                _geralPersistence.Adicionar<Lote>(lote);
+
+                await _geralPersistence.SalvarAnteracoesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao tentar adicionar o Lote! Mensagem: {ex.Message}");
+            }
+        }
+
         public async Task<bool> DeletarLote(int eventoId, int loteId)
         {
 
@@ -94,7 +113,7 @@ namespace ProEventos.Application
                 {
                     if (model.CodigoEvento == 0)
                     {
-
+                        await AdicionarLote(eventoId, model);
                     }
                     else
                     {
