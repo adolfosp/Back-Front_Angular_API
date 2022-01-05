@@ -3,7 +3,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import { Evento } from './../../../models/Evento';
-import { EventoService } from './../../../services/Evento.service';
+import { EventoService } from '../../../services/evento.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';

@@ -1,3 +1,4 @@
+import { LoteService } from './services/lote.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
@@ -25,7 +26,7 @@ import { ContatosComponent } from './componentes/contatos/contatos.component';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { AppRoutingModule } from './app-routing.module';
-import { EventoService } from './services/Evento.service';
+import { EventoService } from './services/evento.service';
 
 import { EventoDetalheComponent } from './componentes/eventos/evento-detalhe/evento-detalhe.component';
 import { EventoListagemComponent } from './componentes/eventos/evento-listagem/evento-listagem.component';
@@ -76,7 +77,7 @@ defineLocale('pt-br', ptBrLocale);
     )
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [EventoService],
+  providers: [EventoService, LoteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
