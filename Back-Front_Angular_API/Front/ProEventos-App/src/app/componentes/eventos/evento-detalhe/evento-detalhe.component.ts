@@ -1,3 +1,4 @@
+import { Lote } from '@app/models/Lote';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -6,7 +7,7 @@ import { Evento } from './../../../models/Evento';
 import { EventoService } from '../../../services/evento.service';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,6 +25,9 @@ export class EventoDetalheComponent implements OnInit {
     return this.form.controls;
   }
 
+  get lotes(): FormArray {
+    return this.form.get('lotes') as FormArray
+  }
   //propriedade
   get bsConfig() : any{
     return { 
@@ -89,8 +93,27 @@ export class EventoDetalheComponent implements OnInit {
       quantidadePessoas: ['', Validators.max(120.000)],
       imagemURL: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       telefone: [],
-      email: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
+      email: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      lotes: this.fb.array([])
 
+    });
+  }
+
+  public adicionarLote(): void {
+    (this.lotes).push(
+        this.criarLote({id: 0} as Lote)
+    );
+  }
+
+  private criarLote(lote: Lote): FormGroup {
+    return this.fb.group({
+      id: [lote.id],
+      nome: [lote.nome, Validators.required],
+      preco: [lote.preco, Validators.required],
+      dataInicio: [lote.dataInicio],
+      dataFim: [lote.dataFim],
+      quantidade: [lote.quantidade, Validators.required],
+      
     });
   }
 
