@@ -7,7 +7,7 @@ import { Evento } from './../../../models/Evento';
 import { EventoService } from '../../../services/evento.service';
 
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -117,7 +117,7 @@ export class EventoDetalheComponent implements OnInit {
     });
   }
 
-  public cssValidator(campoForm: FormControl): any {
+  public cssValidator(campoForm: FormControl | AbstractControl): any {
     return {'is-invalid': campoForm.errors && campoForm.touched}
   }
 
