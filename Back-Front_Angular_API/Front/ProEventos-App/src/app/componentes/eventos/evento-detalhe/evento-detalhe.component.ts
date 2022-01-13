@@ -8,7 +8,7 @@ import { EventoService } from '../../../services/evento.service';
 
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -21,6 +21,10 @@ export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   estadoSalvar: string = 'post';
 
+  get modoEditar(): boolean{
+    return this.estadoSalvar === 'put';
+  }
+  
   get f(): any{
     return this.form.controls;
   }
@@ -41,10 +45,11 @@ export class EventoDetalheComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private localeService: BsLocaleService,
-    private router: ActivatedRoute,
+    private activateRouter: ActivatedRoute,
     private eventoService: EventoService,
     private spinner: NgxSpinnerService,
-    private toaster: ToastrService)
+    private toaster: ToastrService,
+    private router: Router)
     {
       this.localeService.use('pt-br')
     }
@@ -55,7 +60,7 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public carregarEvento() : void{
-    const eventoIdParametro = this.router.snapshot.paramMap.get('id');
+    const eventoIdParametro = this.activateRouter.snapshot.paramMap.get('id');
 
     if(eventoIdParametro !== null){
 
@@ -128,7 +133,11 @@ export class EventoDetalheComponent implements OnInit {
       this.evento = (this.estadoSalvar === 'post') ? {...this.form.value} : {id: this.evento.id, ...this.form.value};
 
       this.eventoService[this.estadoSalvar](this.evento).subscribe(
-        () => this.toaster.success('Evento salvo com sucesso', 'Sucesso!'),
+        (eventoRetorno: Evento) => {
+          this.toaster.success('Evento salvo com sucesso', 'Sucesso!');
+          this.router.navigate([`eventos/detalhe/${eventoRetorno.id}`]);
+
+        },
         (error: any) => {
           console.error(error);
           this.spinner.hide();
