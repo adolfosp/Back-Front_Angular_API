@@ -9,6 +9,7 @@ import { EventoService } from '../../../services/evento.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoteService } from '@app/services/lote.service';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -17,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EventoDetalheComponent implements OnInit {
 
+  eventoId: number;
   evento = {} as Evento
   form!: FormGroup;
   estadoSalvar: string = 'post';
@@ -49,7 +51,8 @@ export class EventoDetalheComponent implements OnInit {
     private eventoService: EventoService,
     private spinner: NgxSpinnerService,
     private toaster: ToastrService,
-    private router: Router)
+    private router: Router,
+    private loteService: LoteService)
     {
       this.localeService.use('pt-br')
     }
@@ -60,14 +63,14 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public carregarEvento() : void{
-    const eventoIdParametro = this.activateRouter.snapshot.paramMap.get('id');
+   this.eventoId = +this.activateRouter.snapshot.paramMap.get('id');
 
-    if(eventoIdParametro !== null){
+    if(this.eventoId !== null || this.eventoId === 0){
 
       this.estadoSalvar = 'put';
       this.spinner.show();
 
-      this.eventoService.ObterEventoById(+eventoIdParametro).subscribe(
+      this.eventoService.ObterEventoById(this.eventoId).subscribe(
         {
           next: (evento: Evento) => {
             this.evento = {...evento};
@@ -126,7 +129,7 @@ export class EventoDetalheComponent implements OnInit {
     return {'is-invalid': campoForm.errors && campoForm.touched}
   }
 
-  public salvarAlteracao(): void{
+  public salvarEvento(): void{
     this.spinner.show();
     if(this.form.valid){
 
@@ -145,6 +148,27 @@ export class EventoDetalheComponent implements OnInit {
         },
         () => this.spinner.hide()
       );
+    }
+  }
+
+  public salvarLotes(): void {
+    this.spinner.show();
+
+    if(this.form.controls.lotes.valid){
+      this.spinner.hide();
+
+      this.loteService.salvarLote(this.eventoId, this.form.value.lotes)
+          .subscribe(
+            () => {
+              this.toaster.success('Lotes salvos com sucesso!', 'Sucesso');
+              this.lotes.reset();
+            },
+            (error: any) => {
+              this.toaster.error('Erro ao tentar salvar lotes!', 'Erro');
+              console.error(error);
+            },
+            () => {}
+          ).add(() => this.spinner.hide());
     }
   }
 }
