@@ -75,17 +75,17 @@ export class EventoDetalheComponent implements OnInit {
           next: (evento: Evento) => {
             this.evento = {...evento};
             this.form.patchValue(this.evento);
+            this.evento.lotes.forEach(lote => {
+              this.lotes.push(this.criarLote(lote));
+            });
+          
           },
           error: (error: any) => {
-            this.spinner.hide(),
-            this.toaster.error('Erro ao tentar carregar o evento', 'Erro!')
-            console.error(error)
-          },
-          complete: () => {
-            this.spinner.hide()
-          },
+            this.toaster.error('Erro ao tentar carregar o evento', 'Erro!');
+            console.error(error);
+          }
         }
-      )
+      ).add(() => this.spinner.hide());
     }
   }
 
