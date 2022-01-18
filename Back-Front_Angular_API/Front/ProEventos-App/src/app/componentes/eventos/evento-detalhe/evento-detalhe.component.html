@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group col-md-4 text-start">
                     <label>Data e Hora</label>
-                    <input type="datetime" [ngClass]="cssValidator(f.dataEvento)" bsDatepicker [bsConfig]="bsConfig" class="form-control is-invalid" value="{{evento.dataEvento | DateTimeFormat}}" formControlName="dataEvento" placeholder="Insira uma data e hora">
+                    <input type="datetime" [ngClass]="cssValidator(f.dataEvento)" bsDatepicker [bsConfig]="bsConfig" value="{{evento.dataEvento | DateTimeFormat}}" class="form-control is-invalid" formControlName="dataEvento" placeholder="Insira uma data e hora">
                     <div *ngIf="f.dataEvento.errors?.required" class="invalid-feedback">Data e hora é obrigatório</div>
                     <div *ngIf="f.dataEvento.errors?.minlength" class="invalid-feedback">Data e hora deve ter no mínimo 4 caracteres</div>
                     <div *ngIf="f.dataEvento.errors?.maxlength" class="invalid-feedback">Data e hora deve ter no máximo 50 caracteres</div>
@@ -112,11 +112,11 @@
               </div>
               <div class="form-group col-md-4">
                 <label>Data Início</label>
-                <input type="text" class="form-control" formControlName="dataInicio" placeholder="01/01/2019">
+                <input type="text" class="form-control" value="{{lotes.get(i+'.dataInicio').value | date:'dd/MM/yyyy'}}" bsDatepicker (bsValueChange)="mudarValorData($event, i, 'dataInicio')" formControlName="dataInicio" placeholder="01/01/2019">
               </div>
               <div class="form-group col-md-4">
                 <label>Data Fim</label>
-                <input type="text" class="form-control" formControlName="dataFim" placeholder="01/01/2019">
+                <input type="text" class="form-control" bsDatepicker value="{{lotes.get(i+'.dataFim').value | date:'dd/MM/yyyy'}}"  (bsValueChange)="mudarValorData($event, i, 'dataFim')"  formControlName="dataFim" placeholder="01/01/2019">
               </div>
             </div>
           </fieldset>
@@ -133,7 +133,7 @@
       <button class="btn btn-outline-secondary mr-auto border">
         Cancelar Alteração
       </button>
-      <button (click)="salvarLotes()" class="btn btn-success">
+      <button (click)="salvarLotes()" [disabled]="!form.valid" class="btn btn-success">
         Salvar Lotes
       </button>
     </div>

@@ -9,7 +9,7 @@ import { EventoService } from '../../../services/evento.service';
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Event, Router } from '@angular/router';
 import { LoteService } from '@app/services/lote.service';
 
 @Component({
@@ -48,6 +48,7 @@ export class EventoDetalheComponent implements OnInit {
       }
   }
 
+
   constructor(
     private fb:FormBuilder,
     private localeService: BsLocaleService,
@@ -70,7 +71,7 @@ export class EventoDetalheComponent implements OnInit {
   public carregarEvento() : void{
    this.eventoId = +this.activateRouter.snapshot.paramMap.get('id');
 
-    if(this.eventoId !== null || this.eventoId === 0){
+    if(this.eventoId !== null && this.eventoId !== 0){
 
       this.estadoSalvar = 'put';
       this.spinner.show();
@@ -92,6 +93,10 @@ export class EventoDetalheComponent implements OnInit {
         }
       ).add(() => this.spinner.hide());
     }
+  }
+
+  public mudarValorData(value: Date, indice: number, campo: string): void{
+    this.lotes.value[indice][campo] = value;
   }
 
   public resetarForm(): void{
@@ -157,10 +162,9 @@ export class EventoDetalheComponent implements OnInit {
   }
 
   public salvarLotes(): void {
-    this.spinner.show();
 
     if(this.form.controls.lotes.valid){
-      this.spinner.hide();
+      this.spinner.show();
 
       this.loteService.salvarLote(this.eventoId, this.form.value.lotes)
           .subscribe(
