@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { AppComponent } from './app.component';
 import { EventosComponent } from './componentes/eventos/eventos.component';
@@ -60,7 +61,7 @@ defineLocale('pt-br', ptBrLocale);
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-
+    NgxCurrencyModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
     BsDatepickerModule.forRoot(),
