@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Application.Contratos;
 using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ProEventos.API.Controllers
@@ -14,11 +16,14 @@ namespace ProEventos.API.Controllers
     {
 
         private readonly IEventoService _service;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public EventoController(IEventoService service)
-            => _service = service;
-
-
+        public EventoController(IEventoService service, IWebHostEnvironment hostEnvironment)
+        { 
+            _service = service;
+            _hostEnvironment = hostEnvironment;
+        }
+        
 
         [HttpGet]
         public async Task<IActionResult> Obter()
@@ -104,6 +109,7 @@ namespace ProEventos.API.Controllers
 
                 if(file.Length > 0)
                 {
+                    DeletarImagem(evento.ImagemURL);
                     evento.ImagemURL = SalvarImagem(file);
                 }
 
@@ -149,6 +155,15 @@ namespace ProEventos.API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível excluir o EVENTO! Mensagem: {ex.Message}");
             }
+        }
+        //Não será um endpoint
+        [NonAction]
+        public void DeletarImagem(string imagem)
+        {
+            var caminhoImagem = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Imagens", imagem);
+
+            if (System.IO.File.Exists(imagem))
+                System.IO.File.Delete(imagem);
         }
     }
 }
