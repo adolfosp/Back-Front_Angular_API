@@ -91,6 +91,32 @@ namespace ProEventos.API.Controllers
             }
         }
 
+        [HttpPost("upload-image/{eventoId}")]
+        public async Task<IActionResult> InserirImagem(int eventoId)
+        {
+            try
+            {
+                var evento = await _service.ObterEventoPorIdAsync(eventoId, true);
+
+                if (evento is null) return NoContent();
+
+                var file = Request.Form.Files[0];
+
+                if(file.Length > 0)
+                {
+                    evento.ImagemURL = SalvarImagem(file);
+                }
+
+                var eventoRetorno = await _service.AtualizarEvento(eventoId, evento);
+
+                return Ok(eventoRetorno);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível inserir o EVENTO! Mensagem: {ex.Message}");
+            }
+        }
+
         [HttpPut("{codigoEvento}")]
         public async Task<IActionResult> Atualizar(int codigoEvento, EventoDto model)
         {
