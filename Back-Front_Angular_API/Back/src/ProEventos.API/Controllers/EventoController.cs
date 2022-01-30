@@ -6,6 +6,7 @@ using ProEventos.Application.Dtos;
 using ProEventos.Domain;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProEventos.API.Controllers
@@ -110,7 +111,7 @@ namespace ProEventos.API.Controllers
                 if(file.Length > 0)
                 {
                     DeletarImagem(evento.ImagemURL);
-                    evento.ImagemURL = SalvarImagem(file);
+                    evento.ImagemURL = await SaveImagem(file);
                 }
 
                 var eventoRetorno = await _service.AtualizarEvento(eventoId, evento);
@@ -156,6 +157,24 @@ namespace ProEventos.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Não foi possível excluir o EVENTO! Mensagem: {ex.Message}");
             }
         }
+
+        [NonAction]
+        public async Task<string> SaveImagem(IFormFile imagemFile)
+        {
+
+            string imagemNome = new String(Path.GetFileNameWithoutExtension(imagemFile.FileName).Take(10).ToArray()).Replace(' ','-');
+
+            imagemNome = $"{imagemNome}{DateTime.UtcNow.ToString("yyyyMMssfff")}{Path.GetExtension(imagemFile.FileName)}";
+
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Imagens", imagemNome);
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imagemFile.CopyToAsync(fileStream);
+            }
+                return "";
+        }
+
         //Não será um endpoint
         [NonAction]
         public void DeletarImagem(string imagem)
