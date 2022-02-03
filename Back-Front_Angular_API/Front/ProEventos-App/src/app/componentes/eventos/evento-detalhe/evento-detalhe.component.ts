@@ -24,6 +24,7 @@ export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   estadoSalvar: string = 'post';
   loteAtual = {id: 0, nome: '', indice: 0};
+  imagemURL = 'assets/img/upload.png'
 
   modalRef: BsModalRef;
 
