@@ -24,7 +24,8 @@ export class EventoDetalheComponent implements OnInit {
   form!: FormGroup;
   estadoSalvar: string = 'post';
   loteAtual = {id: 0, nome: '', indice: 0};
-  imagemURL = 'assets/img/upload.png'
+  imagemURL = 'assets/img/upload.png';
+  file: File;
 
   modalRef: BsModalRef;
 
@@ -213,5 +214,30 @@ export class EventoDetalheComponent implements OnInit {
 
   public retornarTituloLote(nomeLote: string): string {
     return nomeLote === null || nomeLote=== ''? 'Nome do Lote' :nomeLote
+  }
+
+  onFileChange(evento: any): void {
+    
+    const reader = new FileReader();
+
+    reader.onload = (evento: any) => this.imagemURL = evento.target.result;
+
+    this.file = evento.target.files;
+    reader.readAsDataURL(this.file[0])
+
+    this.uploadImagem();
+  } 
+
+  uploadImagem(): void {
+    this.spinner.show();
+    this.eventoService.postUpload(this.eventoId, this.file).subscribe(
+      () => {
+        this.carregarEvento();
+        this.toaster.success("Imagem atualizada com sucesso!", "Sucesso");
+      },
+      (error: any) => {
+        this.toaster.error(`Erro ao tentar fazer o upload da imagem ${error.message}`, "Erro");
+      },
+    ).add(() => this.spinner.hide());
   }
 }
