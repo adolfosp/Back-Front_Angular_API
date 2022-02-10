@@ -13,6 +13,7 @@
                 [ngClass]="{ 'is-invalid': f.tema?.errors && f.tema?.touched }"
                 formControlName="tema"
                 placeholder="Insira o Tema"
+                [(ngModel)]="evento.tema"
               />
               <div *ngIf="f.tema.errors?.required" class="invalid-feedback">
                 Tema é obrigatório
@@ -34,6 +35,7 @@
                 class="form-control is-invalid"
                 formControlName="local"
                 placeholder="Insira um local"
+                [(ngModel)]="evento.local"
               />
               <div *ngIf="f.local.errors?.required" class="invalid-feedback">
                 Local é obrigatório
@@ -56,6 +58,7 @@
                 class="form-control is-invalid"
                 formControlName="dataEvento"
                 placeholder="Insira uma data e hora"
+                [(ngModel)]="evento.dataEvento"
               />
               <div *ngIf="f.dataEvento.errors?.required" class="invalid-feedback">
                 Data e hora é obrigatório
@@ -77,6 +80,7 @@
                 class="form-control is-invalid"
                 formControlName="quantidadePessoas"
                 placeholder="Insira a quantidade de pessoas"
+                [(ngModel)]="evento.quantidadePessoas"
               />
               <div
                 *ngIf="f.quantidadePessoas.errors?.required"
@@ -98,6 +102,8 @@
                 class="form-control"
                 formControlName="telefone"
                 placeholder="(000) 90000-0000"
+                [(ngModel)]="evento.telefone"
+
               />
             </div>
             <div class="form-group col-md-6 text-start">
@@ -108,6 +114,7 @@
                 class="form-control is-invalid"
                 formControlName="email"
                 placeholder="Insira um e-mail"
+                [(ngModel)]="evento.email"
               />
               <div *ngIf="f.email.errors?.required" class="invalid-feedback">
                 E-mail é obrigatório
