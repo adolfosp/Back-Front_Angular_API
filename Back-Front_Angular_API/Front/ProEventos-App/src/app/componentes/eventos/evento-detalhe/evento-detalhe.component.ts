@@ -5,12 +5,13 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import { Evento } from './../../../models/Evento';
-import { EventoService } from '../../../services/evento.service';
+import { EventoService } from '../../../services/Evento.service';
 
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Event, Router } from '@angular/router';
 import { LoteService } from '@app/services/lote.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-evento-detalhe',
@@ -83,6 +84,9 @@ export class EventoDetalheComponent implements OnInit {
           next: (evento: Evento) => {
             this.evento = {...evento};
             this.form.patchValue(this.evento);
+            if (this.evento.imagemURL !== ''){
+              this.imagemURL = environment.apiUrl + 'resources/imagens/' + this.evento.imagemURL;
+            }
             this.evento.lotes.forEach(lote => {
               this.lotes.push(this.criarLote(lote));
             });
@@ -111,7 +115,7 @@ export class EventoDetalheComponent implements OnInit {
       dataEvento: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       quantidadePessoas: ['', Validators.max(120.000)],
-      imagemURL: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      imagemURL: [''],
       telefone: [],
       email: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       lotes: this.fb.array([])

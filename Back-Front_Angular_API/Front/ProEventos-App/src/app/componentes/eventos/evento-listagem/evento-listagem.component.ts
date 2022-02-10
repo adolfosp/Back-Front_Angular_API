@@ -4,7 +4,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/Evento';
-import { EventoService } from '@app/services/evento.service';
+import { environment } from '@environments/environment';
+import { EventoService } from '@app/services/Evento.service';
 
 @Component({
   selector: 'app-evento-listagem',
@@ -55,6 +56,11 @@ export class EventoListagemComponent implements OnInit {
   public AlterarEstadoDaImagem(){
     this.mostrarImagem = !this.mostrarImagem;
   }
+
+  public mostraImagem(imagemUrl: string): string{
+    return (imagemUrl !== '') ? `${environment.apiUrl}resources/imagens/${imagemUrl}`:'assets/img3.png';
+  }
+
 
   //Se inscrever em um observable gasta memória
   public ObterEventos(): void {

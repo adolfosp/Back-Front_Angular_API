@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evento } from '../models/Evento';
 import { take } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
 @Injectable(
 //   {
@@ -11,7 +12,7 @@ import { take } from 'rxjs/operators';
 )
 
 export class EventoService {
-  baseURL = "https://localhost:5001/api/evento"
+  baseURL = environment.apiUrl + '/api/evento';
 
   constructor(private http: HttpClient) { }
 
